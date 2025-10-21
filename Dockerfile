@@ -10,6 +10,10 @@ COPY requirements.txt ./
 # Install all the libraries from requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
+# --- THIS IS THE NEW, IMPORTANT LINE ---
+# Download the NLTK stopwords data
+RUN python -m nltk.downloader stopwords
+
 # Copy the rest of your app's files from your computer into the container
 COPY . .
 

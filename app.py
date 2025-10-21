@@ -18,6 +18,7 @@ st.set_page_config(
 
 # --- Preprocessing Function ---
 # This needs to be available for processing the user's query
+nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
 def preprocess_text(text):
     if not isinstance(text, str):
