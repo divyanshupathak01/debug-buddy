@@ -1,5 +1,3 @@
-# app.py - Final TF-IDF Version
-
 import streamlit as st
 import pandas as pd
 import pickle
@@ -7,6 +5,10 @@ from sklearn.metrics.pairwise import cosine_similarity
 from bs4 import BeautifulSoup
 import re
 import nltk
+
+# --- NLTK Data Download ---
+# This MUST happen before we import stopwords
+nltk.download('stopwords')
 from nltk.corpus import stopwords
 
 # --- Page Configuration ---
@@ -17,8 +19,7 @@ st.set_page_config(
 )
 
 # --- Preprocessing Function ---
-# This needs to be available for processing the user's query
-nltk.download('stopwords')
+# We can now safely get the stopwords
 stop_words = set(stopwords.words('english'))
 def preprocess_text(text):
     if not isinstance(text, str):
@@ -68,7 +69,7 @@ def get_suggested_solution(question_id):
         code_blocks = [code.get_text() for code in soup.find_all('code')]
         return code_blocks if code_blocks else ["No code blocks found."]
     except (IndexError, KeyError):
-        return ["Could not find a corresponding answer."]
+        return ["Could not find a corresponding answer for this question."]
 
 # --- User Interface ---
 st.title("🤖 AI-Powered Python Debugging Helper")
